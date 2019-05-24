@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1/0">
-	<title>My first website</title>
+	<title>Ballina</title>
 	<meta name="desctiption" content="Website about movie">
 	<meta name="keywords" content="films,serials,shows">
 	<link rel="stylesheet" href="CSS/style.css" type="text/css">
 </head>
 <body>
-	
+<?php include 'idex.php';?>
 	<div class="main">
 		
 		<div class="header">
@@ -38,20 +40,20 @@
 				<div class="sidebar">
 					<h2>Search</h2>
 					<form action="#" method="post" id="searchform">
-						<input type="search" name="searchfield" placeholder="Kërkesa juaj">
-						<input type="submit" class="btn" value="Gjej atë">
+						<input type="search" name="searchfield" dirname="kerko" placeholder="Kërkesa juaj">
+						<input class="btn btn-primary" type="submit" class="btn" name="gjej" value="Gjej atë"><!-- bootstrap ketu -->
 					</form>
 
 				</div>
 
 				<div class="sidebar">
 					<h2>Kyçu</h2>
-					<form action="#" method="post" id="login">
-						<input type="text" name="loginfield" placeholder="Email-i i juaj">
-						<input type="password" placeholder="Fjalkalimi juaj" name="passwordfield">
-						<input type="submit" class="btn" value="Kyçu">
+					<form action="db/idex.php" method="post" id="login">
+						<input type="text" name="username" placeholder="Email-i i juaj">
+						<input type="password" name="password" placeholder="Fjalkalimi juaj">
+						<input type="submit" name="login" class="btn" value="Kyçu">
 						<div class="pasregtext">
-							<span><a href="#"> Keni harruar fjalkalimin</a></span> | <span><a href="#">Regjistrohu</a></span>
+							<span><a href="password.html"> Keni harruar fjalkalimin</a></span> | <span><a href="signup.html">Regjistrohu</a></span>
 						</div>
 					</form>
 				</div>
