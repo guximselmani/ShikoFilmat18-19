@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Create a account </title>
-    <link rel="stylesheet" href="Css/resetPass.css" type="text/css">
+    <link rel="stylesheet" href="CSS/resetPass.css" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -54,18 +54,21 @@
                     <div class="row">
                         <div class="col-md-5 register-form">
                             <p>Please enter your information below. It's nice to have you.</p>
+                            <form action="db/login_update.php" method="post" id="send">
 
-                            <p>First Name:</p> <input id="name_addy" name="name_addy" class="form-control" type="text"><br>
-                            <p>Last Name:</p> <input id="surname_addy" name="surname_addy" class="form-control" type="text"><br>
-                            <p>Email Address:</p> <input id="email_addy" name="email_addy" class="form-control" type="text"><br>
-                            <p>Password:</p> <input id="password_addy" name="password_addy" class="form-control" type="password"><br>
-                            <p>Birthday:</p> <input id="birthday_addy" name="birthdau_addy" class="form-control" type="date"><br>
-                            <a id="mybad" name="send" class="btn btn-primary" role="button">Send</a>
+                                <p>First Name:</p> <input id="name_add" name="name_add" class="form-control" type="text"><br>
+                                <p>Last Name:</p> <input id="surname_add" name="surname_add" class="form-control" type="text"><br>
+                                <p>Email Address:</p> <input id="email_add" name="email_add" class="form-control" type="text"><br>
+                                <p>Password:</p> <input id="password_add" name="password_add" class="form-control" type="password"><br>
+                                <p>Birthday:</p> <input id="birthday_add" name="birthday_add" class="form-control" type="date"><br>
+                                <button id="send" type="submit" name="send" class="btn btn-primary" role="button">Send</button>
+                            </form>
                         </div>
                         <div class="col-md-5 forgot-return" style="display:none;">
                             <h2>Reset Password Sent</h2>
                             <p>An email has been sent to your address with a reset password you can use to access your account.</p>
                         </div>
+
                     </div>
                 </div>
             </div>
