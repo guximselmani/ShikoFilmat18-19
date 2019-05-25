@@ -1,13 +1,16 @@
 <?php
 
 
-    if (isset($_POST['login'])){
+    if (isset($_POST['submit'])){
         $username = $_POST['username'];
         $password = $_POST['password'];
 
         $connection = mysqli_connect('localhost', 'root','', 'MenagjimiIFilmave');
 
-        $query = "SELECT * FROM users where username like '" . $username . "'";
+        $username = mysqli_real_escape_string($connection, $username); /* SQL Injection*/
+        $password = mysqli_real_escape_string($connection, $password);
+
+        $query = "SELECT * FROM users where username like '" . $username . "' or email like '" . $username . "'";
 
         $result = mysqli_query($connection, $query);
 
