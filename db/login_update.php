@@ -39,12 +39,18 @@ if (isset($_POST['submit'])){
      if (!$result){
          die('Query FAILD' . mysqli_error());
      }
-     else
-     {
-         header('Location: ' . $_SERVER['HTTP_REFERER']);
-         exit();
-     }
+      
 
+   else
+     {
+
+         if(preg_match("/$name/",$name))                                        //PREG MATCH
+         {echo  "Miresevjen ne ShikoFilma $name ! <br>";}
+
+         $teksti="Ti tani je user i ri !<br>";
+         $zevendesimi=preg_replace("/Ti/","$name",$teksti);         //PREG REPLACE
+         echo $zevendesimi;
+     }
 
 
 }
