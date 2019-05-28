@@ -15,7 +15,35 @@ if (isset($_POST['submit'])){
     $email = mysqli_real_escape_string($connection, $email);
     $birthday = mysqli_real_escape_string($connection, $birthday);
 
+//VALIDIMI NE BAZE TE SHPREHJEVE TE RREGULLTA PER FUSHAT INPUT
+    $emri   ='/^[A-Za-z]{6,32}$/';
+    $mbiemri='/^[A-Za-z]{6,32}$/';
+    $regex  ='/^([a-zA-Z0-9\.]+@+[a-zA-Z]+(\.)+[a-zA-Z]{2,3})$/';
+    $pasi ='/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/';
 
+    if (!preg_match( $emri,$name))
+    {
+        echo "Emri nuk mund te permbaje karaktere tjera pos shkronjave<br>";
+    }
+
+
+     if (!preg_match( $mbiemri,$surname))
+    {
+        echo "Mbiemri nuk mund te permbaje karaktere tjera pos shkronjave<br>";
+    }
+
+
+     if (!preg_match($regex,$email))
+    {
+    echo "invalid email.<br>";
+    }
+
+    if (!preg_match( $pasi,$password))
+    {
+        echo "Passwordi duhet te permbaje se paku nje shkronje dhe nje numer,minimum 8 karaktere<br>";
+    }
+
+	
     if (!$connection){
         die('Is not connected' . mysqli_error());
     }
@@ -44,8 +72,7 @@ if (isset($_POST['submit'])){
    else
      {
 
-         if(preg_match("/$name/",$name))                                        //PREG MATCH
-         {echo  "Miresevjen ne ShikoFilma $name ! <br>";}
+         
 
          $teksti="Ti tani je user i ri !<br>";
          $zevendesimi=preg_replace("/Ti/","$name",$teksti);         //PREG REPLACE
