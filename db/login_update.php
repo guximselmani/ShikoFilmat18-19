@@ -3,6 +3,7 @@
 
 if (isset($_POST['submit'])){
     $name = $_POST['name_add'];
+    $surname = $_POST['surname_add'];
     $password = $_POST['password_add'];
     $email =  $_POST['email_add'];
     $birthday = $_POST['birthday_add'];
@@ -28,8 +29,8 @@ if (isset($_POST['submit'])){
 
     $password = crypt($password, $hashF_and_salt);
 
-     $query = "INSERT INTO users(username, password, email, birthday) ";
-    $query .= "VALUES ('$name', '$password', '$email', '$birthday')";
+     $query = "INSERT INTO users(username, surname, password, email, birthday) ";
+    $query .= "VALUES ('$name', '$surname', '$password', '$email', '$birthday')";
 
      $result = mysqli_query($connection,$query);
 
@@ -40,7 +41,8 @@ if (isset($_POST['submit'])){
      }
      else
      {
-         echo "goooood";
+         header('Location: ' . $_SERVER['HTTP_REFERER']);
+         exit();
      }
 
 

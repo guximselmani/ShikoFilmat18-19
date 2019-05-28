@@ -15,7 +15,12 @@
         $result = mysqli_query($connection, $query);
 
         if ($result){
-            echo "???";
+            //session me rujt ose cookies
+
+            setcookie('username',$username,time()+(3600*24*7));
+
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+            exit();
         }
         else{
             die('Query FAILED' . mysqli_error($connection));

@@ -25,7 +25,7 @@
 			<div class="menubar">
 				<ul class="menu">
 					<li class="selected"><a href="#">Ballina</a></li>
-					<li><a href="films.html">Filma</a></li>
+					<li><a href="filma.html">Filma</a></li>
 					<li><a href="#">Seriale</a></li>
 					<li><a href="rating.html">Vleresimi</a></li>
 					<li><a href="contact.html">Kontakti</a></li>
@@ -49,8 +49,12 @@
 				<div class="sidebar">
 					<h2>Kyçu</h2>
 					<form action="db/idex.php" method="post" id="login">
-						<input type="text" name="username" placeholder="Email-i i juaj">
+						<input type="text" name="username" placeholder="Email-i i juaj" <?php if(isset($_COOKIE['username])) {echo "value='{$_COOKIE['username]}'";} ?> >
 						<input type="password" name="password" placeholder="Fjalkalimi juaj">
+						<div class="pasregtext">
+							<input type="checkbox" name="remember" id="remember">
+                            <p>Remember me?</p>
+						</div>
 						<input type="submit" name="submit" class="btn" value="Kyçu">
 						<div class="pasregtext">
 							<span><a href="password.html"> Keni harruar fjalkalimin</a></span> | <span><a href="signup.html">Regjistrohu</a></span>
@@ -108,7 +112,7 @@
 		<div class="footer">
 			<p>
 				<a href="index.html">Ballina</a> |
-				<a href="films.html">Filma</a> |
+				<a href="filma.html">Filma</a> |
 				<a href="#">Seriale</a> |
 				<a href="rating.html">Vleresimi</a> |
 				<a href="contact.html">Kontakti</a> |
