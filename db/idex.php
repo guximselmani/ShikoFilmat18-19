@@ -1,6 +1,6 @@
 <?php
 
-
+    session_start();
     if (isset($_POST['submit'])){
         $username = $_POST['username'];
         $password = $_POST['password'];
@@ -15,9 +15,17 @@
         $result = mysqli_query($connection, $query);
 
         if ($result){
-            //session me rujt ose cookies
-
-            setcookie('username',$username,time()+(3600*24*7));
+            if ($_POST['remember'] == "on") {
+                setcookie('username', $username, time() + (3600 * 24 * 7), "/");
+                setcookie('password', $password, time() + (360 * 24 * 7), "/");
+            } else  {
+                setcookie('username', '', time() + (3600 * 24 * 7), "/");
+                setcookie('password', '', time() + (3600 * 24 * 7), "/");
+            }
+            if ($_POST['submit']){
+                $_SESSION['login'] = "hide";
+                $_SESSION['logout'] = "show";
+            }
 
             header('Location: ' . $_SERVER['HTTP_REFERER']);
             exit();
