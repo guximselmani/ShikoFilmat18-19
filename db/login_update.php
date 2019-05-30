@@ -1,3 +1,4 @@
+<?php include_once "Connection.php"; ?>
 <?php
 
 
@@ -8,13 +9,15 @@ if (isset($_POST['submit'])) {
     $email = $_POST['email_add'];
     $birthday = $_POST['birthday_add'];
 
-    $connection = mysqli_connect('localhost', 'root', '', 'MenagjimiIFilmave');
+    $nameError = "";
 
-    $name = mysqli_real_escape_string($connection, $name);
-    $surname = mysqli_real_escape_string($connection, $surname);
-    $password = mysqli_real_escape_string($connection, $password);
-    $email = mysqli_real_escape_string($connection, $email);
-    $birthday = mysqli_real_escape_string($connection, $birthday);
+    $connection = new DbConnection();
+
+    $name = mysqli_real_escape_string($connection->getdbconnect(), $name);
+    $surname = mysqli_real_escape_string($connection->getdbconnect(), $surname);
+    $password = mysqli_real_escape_string($connection->getdbconnect(), $password);
+    $email = mysqli_real_escape_string($connection->getdbconnect(), $email);
+    $birthday = mysqli_real_escape_string($connection->getdbconnect(), $birthday);
 
     //VALIDIMI NE BAZE TE SHPREHJEVE TE RREGULLTA PER FUSHAT INPUT
     $emri = '/^[A-Za-z]{6,32}$/';
@@ -22,53 +25,68 @@ if (isset($_POST['submit'])) {
     $regex = '/^([a-zA-Z0-9\.]+@+[a-zA-Z]+(\.)+[a-zA-Z]{2,3})$/';
     $pasi = '/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/';
 
-    if (!preg_match($emri, $name) || !preg_match($mbiemri, $surname)) {
-        echo "Emri ose mbiemri nuk mund te permbajne karaktere tjera pos shkronjave<br>";
+//    if (!preg_match($emri, $name) || !preg_match($mbiemri, $surname)) {
+//        $nameError = "Only letters and white space allowed";
+//    }
+    if (empty($_POST["name"])) {
+        $nameError = "Name is required";
     } else {
-        if (!preg_match($regex, $email)) {
-            echo "invalid email.<br>";
-        } else {
-
-            if (!preg_match($pasi, $password)) {
-                echo "Passwordi duhet te permbaje se paku nje shkronje dhe nje numer,minimum 8 karaktere<br>";
+        $name = test_input($_POST["name"]);
+// check name only contains letters and whitespace
+        if (!preg_match($emri,$name)) {
+            $nameError = "Only letters and white space allowed";
+        }else {
+            if (!preg_match($regex, $email)) {
+                echo "invalid email.<br>";
             } else {
 
-                if (!$connection) {
-                    die('Is not connected' . mysqli_error());
+                if (!preg_match($pasi, $password)) {
+                    echo "Passwordi duhet te permbaje se paku nje shkronje dhe nje numer,minimum 8 karaktere<br>";
                 } else {
 
-                    $hashFormat = "$2y$10$";
-                    $salt = "asdfghjklqwertyuiopzxc";
-                    $hashF_and_salt = $hashFormat . $salt; //Encrypt password
-
-                    $password = crypt($password, $hashF_and_salt);
-
-                    $query = "INSERT INTO users (firstname, surname, password, email, birthday)";
-                    $query .= "VALUES ('$name', '$surname', '$password', '$email', '$birthday');";
-
-                    $result = mysqli_query($connection, $query);
-
-                    var_dump($result);
-
-                    if (!$result) {
-
-                        die('Query FAILD' . mysqli_error());
-
+                    if (!$connection) {
+                        die('Is not connected' . mysqli_error());
                     } else {
 
-                        $teksti = "Ti tani je user i ri !<br>";
-                        $zevendesimi = preg_replace("/Ti/", "$name", $teksti); //PREG REPLACE
-                        echo $zevendesimi;
+                        $hashFormat = "$2y$10$";
+                        $salt = "asdfghjklqwertyuiopzxc";
+                        $hashF_and_salt = $hashFormat . $salt; //Encrypt password
+
+                        $password = crypt($password, $hashF_and_salt);
+
+                        $query = "INSERT INTO users (username, surname, password, email, birthday)";
+                        $query .= "VALUES ('$name', '$surname', '$password', '$email', '$birthday');";
+
+                        $result = mysqli_query($connection->getdbconnect(), $query);
+
+                        var_dump($result);
+
+                        if (!$result) {
+
+                            die('Query FAILD' . mysqli_error());
+
+                        } else {
+
+                            $teksti = "Ti tani je user i ri !<br>";
+                            $zevendesimi = preg_replace("/Ti/", "$name", $teksti); //PREG REPLACE
+                            echo $zevendesimi;
+
+                        }
 
                     }
 
                 }
 
             }
-
         }
     }
-}
+
+    function test_input($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+    }
 
 
-?>
+    ?>

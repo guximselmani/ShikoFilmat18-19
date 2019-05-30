@@ -1,18 +1,18 @@
+<?php include_once "Connection.php"; ?>
 <?php
-
     session_start();
     if (isset($_POST['submit'])){
         $username = $_POST['username'];
         $password = $_POST['password'];
 
-        $connection = mysqli_connect('localhost', 'root','', 'MenagjimiIFilmave');
+        $connection = new DbConnection();
 
-        $username = mysqli_real_escape_string($connection, $username); /* SQL Injection*/
-        $password = mysqli_real_escape_string($connection, $password);
+        $username = mysqli_real_escape_string($connection->getdbconnect(), $username); /* SQL Injection*/
+        $password = mysqli_real_escape_string($connection->getdbconnect(), $password);
 
-        $query = "SELECT * FROM users where username like '" . $username . "' or email like '" . $username . "'";
+        $query = "SELECT * FROM users where email like '" . $username . "' and password like '" . $password . "'";
 
-        $result = mysqli_query($connection, $query);
+        $result = mysqli_query($connection->getdbconnect(), $query);
 
         if ($result){
             if ($_POST['remember'] == "on") {

@@ -21,7 +21,7 @@
             </div>
             <input type="submit" name="submit" class="btn" value="Kyçu">
             <div class="pasregtext">
-                <span><a href="password.html"> Keni harruar fjalkalimin</a></span> | <span><a href="signup.html">Regjistrohu</a></span>
+                <span><a href="password.html"> Keni harruar fjalkalimin</a></span> | <span><a href="signup.php">Regjistrohu</a></span>
             </div>
         </form>
     </div>

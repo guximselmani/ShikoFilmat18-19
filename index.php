@@ -41,7 +41,7 @@
 		<div class="footer">
 			<p>
 				<a href="index.html">Ballina</a> |
-				<a href="filma.html">Filma</a> |
+				<a href="filma.php">Filma</a> |
 				<a href="#">Seriale</a> |
 				<a href="rating.html">Vleresimi</a> |
 				<a href="contact.html">Kontakti</a> |
