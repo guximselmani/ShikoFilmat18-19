@@ -28,7 +28,7 @@
                     <div id="subMenu" class="panel panel-default">
                         <ul class="subMenuHighlight panel-heading">
                             <li class="subMenuHighlight panel-title" id="subMenuHighlight">
-                                <a id="li_291" href="signup.html"><span class="subMenuHighlight">Register</span></a>
+                                <a id="li_291" href="signup.php"><span class="subMenuHighlight">Register</span></a>
                             </li>
                         </ul>
                         <ul class="panel-heading">
@@ -38,7 +38,7 @@
                         </ul>
                         <ul class="panel-heading">
                             <li class="panel-title">
-                                <a class="subMenu1" href="index.php"><span>Login</span></a>
+                                <a class="subMenu1" href="index.html"><span>Login</span></a>
                             </li>
                         </ul>
                     </div>
@@ -55,17 +55,21 @@
                         <div class="col-md-5 register-form">
                             <p>Please enter your information below. It's nice to have you.</p>
                             <form action="db/login_update.php" method="post" id="send">
-                                <p>First Name:</p> <input id="name_add" name="name_add" class="form-control" type="text"><br>
-<!--                                <h2>Form</h2>-->
-<!--                                <span class="error">* required field.</span>-->
-<!--                                Name:-->
-<!--                                <input class="input" name="name" type="text" value="">-->
-<!--                                <span class="error">* --><?php //echo $nameError;?><!--</span>-->
-                                <p>Last Name:</p> <input id="surname_add" name="surname_add" class="form-control" type="text">
-                                <p>test test</p><br>
-                                <p>Email Address:</p> <input id="email_add" name="email_add" class="form-control" type="text"><br>
-                                <p>Password:</p> <input id="password" name="password_add" class="form-control" type="password"><br>
-                                <p>Birthday:</p> <input id="birthday_add" name="birthday_add" class="form-control" type="date"><br>
+
+                                First Name: <input id="name_add" name="name_add" class="form-control" type="text">
+                                <span> * <?php echo $nameError;?></span>
+
+                                Last Name: <input id="surname_add" name="surname_add" class="form-control" type="text">
+                                <span> * <?php echo $surnameError;?></span>
+
+                                Email Address: <input id="email_add" name="email_add" class="form-control" type="text">
+                                <span> * <?php echo $emailError;?></span>
+
+                                Password: <input id="password" name="password_add" class="form-control" type="password">
+                                <span> * <?php echo $passwordError;?></span>
+
+                                Birthday: <input id="birthday_add" name="birthday_add" class="form-control" type="date">
+
                                 <button id="submit" type="submit" name="submit" class="btn btn-primary" role="button">Send</button>
                             </form>
                         </div>
