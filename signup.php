@@ -215,16 +215,16 @@
                     <div class="row">
                         <div class="col-md-5 register-form">
                             <p>Please enter your information below. It's nice to have you.</p>
-                            <form action="db/login_update.php" method="post" id="send">
+                            <form action="<?php $_SERVER['db/login_update.php'] ?>" method="post" id="send">
 
                                 First Name: <input id="name_add" name="name_add" class="form-control" type="text">
-                                <span class="error"> * <?php echo $nameError; ?> </span><br>
+                                <span class="error"> * <?php  $nameError; ?> </span><br>
 
                                 Last Name: <input id="surname_add" name="surname_add" class="form-control" type="text">
-                                <span> * <?php echo $surnameError; ?> </span><br>
+                                <span> * <?php $surnameError; ?> </span><br>
 
                                 Email Address: <input id="email_add" name="email_add" class="form-control" type="text">
-                                <span> * <?php echo $emailError; ?> </span><br>
+                                <span> * <?php $emailError; ?> </span><br>
 
                                 Password: <input id="password" name="password_add" class="form-control" type="password">
                                 <span> * <?php echo $passwordError; ?> </span><br>
