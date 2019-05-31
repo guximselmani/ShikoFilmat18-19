@@ -1,5 +1,6 @@
+<?php include_once "Connection.php"; ?>
 <?php
-
+session_start();
 $nameError ="";
 $surnameError ="";
 $passwordError ="";
@@ -10,49 +11,57 @@ if (isset($_POST['submit'])) {
 
     if (empty($_POST["name_add"])) {
         $nameError = "Shkruaj emrin";
+//        header("Location: ../signup.php");
     }
     else{
         $name = test_input($_POST["name_add"]);
         $emri = '/^[A-Za-z]{3,32}$/';
         if (!preg_match($emri,$name)) {
             $nameError = "Emri mund te permbaj 3-32 SHKRONJA";
+//            header("Location: ../signup.php");
         }
     }
 
     if (empty($_POST["surname_add"])) {
         $surnameError = "Shkruaj mbiemrin";
+//        header("Location: ../signup.php");
     }
     else{
         $surname = test_input($_POST["surname_add"]);
         $mbiemri = '/^[A-Za-z]{3,32}$/';
         if (!preg_match($mbiemri,$surname)) {
-            $surnameError = "Emri mund te permbaj 3-32 SHKRONJA";
+            $surnameError = "Mbiemri mund te permbaj 3-32 SHKRONJA";
+//            header("Location: ../signup.php");
         }
     }
 
     if (empty($_POST["email_add"])) {
         $emailError = "Te shkruhet Email";
+//        header("Location: ../signup.php");
     }
     else {
         $email = test_input($_POST["email_add"]);
         $regex = '/^([a-zA-Z0-9\.]+@+[a-zA-Z]+(\.)+[a-zA-Z]{2,3})$/';
         if (!preg_match($regex,$email)) {
             $emailError = "Formati jo sakte";
+//            header("Location: ../signup.php");
         }
     }
 
     if (empty($_POST["password_add"])) {
         $passwordError= "Te shkruhet fjalekalimi";
+//        header("Location: ../signup.php");
     }
     else {
         $password = test_input($_POST["password_add"]);
         $pasi= '/^([a-zA-Z0-9\.]+@+[a-zA-Z]+(\.)+[a-zA-Z]{2,3})$/';
         if (!preg_match($pasi,$password)) {
             $passwordError = "Passwordi duhet te permbaje nje shkronje nje numer,minimum 8 karaktere";
+//            header("Location: ../signup.php");
         }
     }
 
-    $connection = mysqli_connect('localhost', 'root', '', 'MenagjimiIFilmave');
+
 
     $name = $_POST['name_add'];
     $surname = $_POST['surname_add'];
@@ -60,15 +69,13 @@ if (isset($_POST['submit'])) {
     $email = $_POST['email_add'];
     $birthday = $_POST['birthday_add'];
 
-    $name = mysqli_real_escape_string($connection, $name);
-    $surname = mysqli_real_escape_string($connection, $surname);
-    $password = mysqli_real_escape_string($connection, $password);
-    $email = mysqli_real_escape_string($connection, $email);
-    $birthday = mysqli_real_escape_string($connection, $birthday);
+    $connection = new DbConnection();
 
-
-    $query = "INSERT INTO users (firstname, surname, password, email, birthday)";
-    $query .= "VALUES ('$name', '$surname', '$password', '$email', '$birthday');";
+    $name = mysqli_real_escape_string($connection->getdbconnect(), $name);
+    $surname = mysqli_real_escape_string($connection->getdbconnect(), $surname);
+    $password = mysqli_real_escape_string($connection->getdbconnect(), $password);
+    $email = mysqli_real_escape_string($connection->getdbconnect(), $email);
+    $birthday = mysqli_real_escape_string($connection->getdbconnect(), $birthday);
 
     $hashFormat = "$2y$10$";
     $salt = "asdfghjklqwertyuiopzxc";
@@ -76,11 +83,15 @@ if (isset($_POST['submit'])) {
 
     $password = crypt($password, $hashF_and_salt);
 
+    $query = "INSERT INTO users (firstname, lastname, password, email, birthday) ";
+    $query .= "VALUES ('$name', '$surname', '$password', '$email', '$birthday');";
+
+
     if (!$connection) {
         die('Is not connected' . mysqli_error());
     } else {
 
-        $result = mysqli_query($connection, $query);
+        $result = mysqli_query($connection->getdbconnect(), $query);
 
         var_dump($result);
 
@@ -88,7 +99,13 @@ if (isset($_POST['submit'])) {
 
             die('Query FAILD' . mysqli_error());
 
+        }else{
+            $_SESSION['login'] = "hide";
+            $_SESSION['logout'] = "show";
+            header("Location: ../index.php");
+            exit();
         }
+    }
     /*VALIDIMI NE BAZE TE SHPREHJEVE TE RREGULLTA PER FUSHAT INPUT
     $emri = '/^[A-Za-z]{3,32}$/';
     $mbiemri = '/^[A-Za-z]{3,32}$/';
