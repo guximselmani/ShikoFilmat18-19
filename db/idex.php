@@ -5,16 +5,16 @@
         $username = $_POST['username'];
         $password = $_POST['password'];
 
-        $connection = new DbConnection();
+        $connection = new MySQLConnect();
 
-        $username = mysqli_real_escape_string($connection->getdbconnect(), $username); /* SQL Injection*/
-        $password = mysqli_real_escape_string($connection->getdbconnect(), $password);
+        $username = mysqli_real_escape_string($connection->getConnection(), $username); /* SQL Injection*/
+        $password = mysqli_real_escape_string($connection->getConnection(), $password);
 
         $query = "SELECT * FROM users where email like '" . $username . "' and password like '" . $password . "'";
 
-        $result = mysqli_query($connection->getdbconnect(), $query);
+        $result = mysqli_query($connection->getConnection(), $query);
 
-        if ($result){
+        if (!$result){
             if ($_POST['remember'] == "on") {
                 setcookie('username', $username, time() + (3600 * 24 * 7), "/");
                 setcookie('password', $password, time() + (360 * 24 * 7), "/");
@@ -31,7 +31,8 @@
             exit();
         }
         else{
-            die('Query FAILED' . mysqli_error($connection));
+            var_dump($query);
+            die('Query FAILED' . mysqli_error($connection->getConnection()));
         }
 
     }

@@ -62,12 +62,12 @@ if(isset($_POST["submit"]))
         require 'class/class.phpmailer.php';
         $mail = new PHPMailer;
         $mail->IsSMTP();        //Sets Mailer to send message using SMTP
-        $mail->Host = 'smtpout.secureserver.net';  //Sets the SMTP hosts
-        $mail->Port = '80';        //Sets the default SMTP server port
+        $mail->Host = 'smtp.mailtrap.io';  //Sets the SMTP hosts
+        $mail->Port = '465';        //Sets the default SMTP server port
         $mail->SMTPAuth = true;       //Sets SMTP authentication. Utilizes the Username and Password variables
-        $mail->Username = 'trimi83@live.com';     //Sets SMTP username
-        $mail->Password = 'Aaaa1234';     //Sets SMTP password
-        $mail->SMTPSecure = 'ssl';       //Sets connection prefix. Options are "", "ssl" or "tls"
+        $mail->Username = '474318d233b85f';     //Sets SMTP username
+        $mail->Password = '67a393d185ee51';     //Sets SMTP password
+        $mail->SMTPSecure = 'tls';       //Sets connection prefix. Options are "", "ssl" or "tls"
         $mail->From = $_POST["email"];     //Sets the From email address for the message
         $mail->FromName = $_POST["name"];    //Sets the From name of the message
         $mail->AddAddress('leutrimi.bytyqi@gmail.com', 'Name');//Adds a "To" address
@@ -82,7 +82,7 @@ if(isset($_POST["submit"]))
         }
         else
         {
-            $error = '<label class="text-danger">There is an Error</label>';
+            $error = '<label class="text-danger">There is an Error' . $mail->ErrorInfo . '</label>';
         }
         $name = '';
         $email = '';
