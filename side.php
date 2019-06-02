@@ -1,10 +1,7 @@
 <?php
 require_once "config.php";
 
-if(isset($_SESSION['access_token'])){
-    header('Location: indexphp.php');
-    exit();
-}
+
 $redirectURL="http://localhost/ShikoFilmat18-19/fb-callback.php";
 $permissions=['email'];
 $loginURL=$helper->getLoginUrl($redirectURL,$permissions);
