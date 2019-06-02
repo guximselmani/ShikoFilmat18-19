@@ -1,4 +1,15 @@
+<?php
+require_once "config.php";
 
+if(isset($_SESSION['access_token'])){
+    header('Location: indexphp.php');
+    exit();
+}
+$redirectURL="http://localhost/ShikoFilmat18-19/fb-callback.php";
+$permissions=['email'];
+$loginURL=$helper->getLoginUrl($redirectURL,$permissions);
+
+?>
 
     <div class="sidebar">
         <h2>Search</h2>
@@ -20,6 +31,7 @@
                 <p>Remember me?</p>
             </div>
             <input type="submit" name="submit" class="btn" value="Kyçu">
+            <input type="button" onclick="window.location='<?php echo $loginURL ?>'" name="submit" class="btn" value="Login with FB">
             <div class="pasregtext">
                 <span><a href="password.html"> Keni harruar fjalkalimin</a></span> | <span><a href="signup.php">Regjistrohu</a></span>
             </div>
