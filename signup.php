@@ -1,4 +1,4 @@
-<?php include "db/login_update.php";
+<?php //include "db/login_update.php";
 // include_once "Css/validation.php"; ?>
 <?php
 
@@ -226,24 +226,23 @@ $surnameError ="";
                     <div class="row">
                         <div class="col-md-5 register-form">
                             <p>Please enter your information below. It's nice to have you.</p>
-                            <form action="db/login_update.php" method="post" id="send">
 
                                 First Name: <input id="name_add" name="name_add" class="form-control" type="text">
-                                <span class="errorMessage"> <?php  echo $nameError; ?></span><br>
+                                <span class="errorMessage" id="error_name"> </span><br>
 
                                 Last Name: <input id="surname_add" name="surname_add" class="form-control" type="text">
-                                <span> <?php echo $surnameError; ?> </span><br>
+                                <span class="errorMessage" id="error_surname"></span><br>
 
                                 Email Address: <input id="email_add" name="email_add" class="form-control" type="text">
-<!--                                <span> --><?php //echo $emailError; ?><!-- </span><br>-->
+                                <span class="errorMessage" id="error_email"></span><br>
 
                                 Password: <input id="password" name="password_add" class="form-control" type="password">
-<!--                                <span> --><?php //echo $passwordError; ?><!-- </span><br>-->
+                                <span class="errorMessage" id="error_password"></span><br>
 
-                                Birthday: <input id="birthday_add" name="birthday_add" class="form-control" type="date"><br>
+                                Birthday: <input id="birthday_add" name="birthday_add" class="form-control" type="date">
+<!--                                <span class="errorMessage" id="error_birthday"></span><br>-->
 
-                                <button id="submit" type="submit" name="submit" class="btn btn-primary" role="button">Send</button>
-                            </form>
+                                <button id="submit" name="submit" class="btn btn-primary" role="button">Send</button>
                         </div>
                         <div class="col-md-5 forgot-return" style="display:none;">
                             <h2>Reset Password Sent</h2>
@@ -254,6 +253,49 @@ $surnameError ="";
                 </div>
             </div>
         </div>
+
+        <script type="text/javascript">
+
+            var name_add = $("#name_add");
+            var surname_add = $("#surname_add");
+            var email_add = $("#email_add");
+            var password = $("#password");
+            var birthday_add = $("#birthday_add");
+
+            $(document).ready(function () {
+                $('#submit').on('click', function () {
+                    //if (email.val() != "") {
+                        //email.css('border', '1px solid green');
+
+                        $.ajax({
+                            url: 'db/login_update.php',
+                            method: 'POST',
+                            dataType: 'text',
+                            data: {
+                                name_add: name_add.val(),
+                                surname_add: surname_add.val(),
+                                email_add: email_add.val(),
+                                password_add: password.val(),
+                                birthday_add: birthday_add.val()
+                            }, success: function (response) {
+                                var responseData = JSON.parse(response);
+                                console.log(responseData);
+                                if(responseData.status == 1) {
+                                    window.location = "index.php";
+//                                    alert("test");
+                                }
+                                else {
+                                    $("#" + responseData.id).text(responseData.msg);
+//                                    alert(responseData.msg);
+                                }
+                                $("#response").html(response.msg).css('color', "green");
+
+                            }
+                        });
+                });
+            });
+        </script>
+
 
 </body>
 </html>

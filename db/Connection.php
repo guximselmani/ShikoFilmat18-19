@@ -32,7 +32,7 @@ class MySQLConnect{
 //                die("Internal error - " . mysqli_error($this->mysqli));
 //            }
 //        }
-        echo 'Exiting new connection<br>';
+        //echo 'Exiting new connection<br>';
         return $this->mysqli;
     }
 
