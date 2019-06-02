@@ -29,7 +29,23 @@ $surnameError ="";
             ($surnameError = "Shkruaj mbiemrin");
             header("Location: ../signup.php");
             return;
-        } else {
+        } else {//PHP EXCEPTION,STRLEN
+            try
+            {
+                if(strlen($mbiemri)>30)
+                {
+                    echo " ";
+                }
+                else
+                {
+                    throw new Exception('Mbimri duhet ti kete me pak se 30 shkronja');
+                }
+            }
+
+            catch(Exception $er)
+            {
+                echo 'Error:'.$er->getMessage();
+            }
             $surname = test_input($_POST["surname_add"]);
             $mbiemri = '/^[A-Za-z]{3,32}$/';
             if (!preg_match($mbiemri, $surname)) {

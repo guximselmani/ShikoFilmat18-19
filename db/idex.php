@@ -10,21 +10,28 @@
         $username = mysqli_real_escape_string($connection->getConnection(), $username); /* SQL Injection*/
         $password = mysqli_real_escape_string($connection->getConnection(), $password);
 
-        $hashFormat = "$2y$10$";
-        $salt = "asdfghjklqwertyuiopzxc";
-        $hashF_and_salt = $hashFormat . $salt; //Encrypt password
 
-        if (password_verify($password, $hashF_and_salt)) {
+        $query1="SELECT saltedHashin from users WHERE email LIKE '" . $username . "'";
+        $salt=$connection->getConnection($query1);
+
+
+//
+//        if (is_array($salt)&&!empty($salt)){
+//            var_dump($salt);
+//            $salt=implode(",",$salt[0]);
+//            $password=sha1($salt.$password);
+//            echo $password;
+//        }
+        if (password_verify($password, '$2y$10$asdfghjklqwertyuiopzxc')) {
             echo 'Password is valid!';
         } else {
             echo 'Invalid password.';
         }
-
         $query = "SELECT * FROM users where email like '" . $username . "' and password = '" . $password . "'";
 
         $result = mysqli_query($connection->getConnection(), $query);
 
-        if (!$result){
+        if ($result){
             if ($_POST['remember'] == "on") {
                 setcookie('username', $username, time() + (3600 * 24 * 7), "/");
                 setcookie('password', $password, time() + (360 * 24 * 7), "/");

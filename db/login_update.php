@@ -18,7 +18,7 @@ $birthdayError ="";
         $emri = '/^[A-Za-z]{3,32}$/';
         if (!preg_match($emri,$name)) {
             $nameError = "Emri mund te permbaj 3-32 SHKRONJA";
-            exit(json_encode(array("status" => 2, "msg" => $nameError)));
+            exit(json_encode(array("status" => 2, "msg" => $nameError, 'id' => 'error_name')));
         }
     }
 
@@ -31,7 +31,7 @@ $birthdayError ="";
         $mbiemri = '/^[A-Za-z]{3,32}$/';
         if (!preg_match($mbiemri,$surname)) {
             $surnameError = "Mbiemri mund te permbaj 3-32 SHKRONJA";
-            exit(json_encode(array("status" => 2, "msg" => $surnameError)));
+            exit(json_encode(array("status" => 2, "msg" => $surnameError, 'id' => 'error_surname')));
         }
     }
 
@@ -86,8 +86,8 @@ $birthdayError ="";
 
     $password = crypt($password, $hashF_and_salt);
 
-    $query = "INSERT INTO users (firstname, lastname, password, email, birthday) ";
-    $query .= "VALUES ('$name', '$surname', '$password', '$email', '$birthday');";
+    $query = "INSERT INTO users (firstname, lastname, password, email, birthday, saltedHashin) ";
+    $query .= "VALUES ('$name', '$surname', '$password', '$email', '$birthday', '$hashF_and_salt');";
 
 
     if (!$connection) {
@@ -96,45 +96,15 @@ $birthdayError ="";
 
         $result = mysqli_query($connection->getConnection(), $query);
 
-
-        if (!$result) {
-
-            die('Query FAILD' . mysqli_error($connection->getConnection()));
-
-        }else{
+        if ($result) {
+            throw new Exception('Query FAILD' . mysqli_error($connection->getConnection()));
+        } else {
             $_SESSION['login'] = "hide";
             $_SESSION['logout'] = "show";
 //            header("Location: ../index.php");
             exit(json_encode(array("status" => 1, "msg" => "Success")));
         }
     }
-    /*VALIDIMI NE BAZE TE SHPREHJEVE TE RREGULLTA PER FUSHAT INPUT
-    $emri = '/^[A-Za-z]{3,32}$/';
-    $mbiemri = '/^[A-Za-z]{3,32}$/';
-    $regex = '/^([a-zA-Z0-9\.]+@+[a-zA-Z]+(\.)+[a-zA-Z]{2,3})$/';
-    $pasi = '/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,20}$/';
-
-    if (!preg_match($emri, $name) || !preg_match($mbiemri, $surname)) {
-        echo "Emri ose mbiemri nuk mund te permbajne karaktere tjera pos shkronjave<br>";
-    } else {
-        if (!preg_match($regex, $email)) {
-            echo "invalid email.<br>";
-        } else {
-
-            if (!preg_match($pasi, $password)) {
-                echo "Passwordi duhet te permbaje se paku nje shkronje dhe nje numer,minimum 8 karaktere<br>";
-            } else {
-
-
-                    else {
-
-                        $teksti = "Ti tani je user i ri !<br>";
-                        $zevendesimi = preg_replace("/Ti/", "$name", $teksti); //PREG REPLACE
-                        echo $zevendesimi;
-
-                    }*/
-
-//}
 function test_input($data) {
     $data = trim($data);
     $data = stripslashes($data);
