@@ -62,15 +62,16 @@ if(isset($_POST["submit"]))
         require 'class/class.phpmailer.php';
         $mail = new PHPMailer;
         $mail->IsSMTP();        //Sets Mailer to send message using SMTP
-        $mail->Host = 'smtp.mailtrap.io';  //Sets the SMTP hosts
-        $mail->Port = '465';        //Sets the default SMTP server port
+        //$mail->SMTPDebug = 1;
+        $mail->Host = 'smtp.gmail.com';  //Sets the SMTP hosts
+        $mail->Port = 587;        //Sets the default SMTP server port
         $mail->SMTPAuth = true;       //Sets SMTP authentication. Utilizes the Username and Password variables
-        $mail->Username = '474318d233b85f';     //Sets SMTP username
-        $mail->Password = '67a393d185ee51';     //Sets SMTP password
+        $mail->Username = 'testprojektphp@gmail.com';     //Sets SMTP username
+        $mail->Password = 'Aaaa1234';     //Sets SMTP password
         $mail->SMTPSecure = 'tls';       //Sets connection prefix. Options are "", "ssl" or "tls"
         $mail->From = $_POST["email"];     //Sets the From email address for the message
         $mail->FromName = $_POST["name"];    //Sets the From name of the message
-        $mail->AddAddress('leutrimi.bytyqi@gmail.com', 'Name');//Adds a "To" address
+        $mail->AddAddress('testprojektphp@gmail.com', 'Name');//Adds a "To" address
         $mail->AddCC($_POST["email"], $_POST["name"]); //Adds a "Cc" address
         $mail->WordWrap = 50;       //Sets word wrapping on the body of the message to a given number of characters
         $mail->IsHTML(true);       //Sets message type to HTML
@@ -164,11 +165,11 @@ if(isset($_POST["submit"]))
     </div>
     <div class="footer">
         <p>
-            <a href="index.html">Ballina</a> |
-            <a href="films.html">Filma</a> |
+            <a href="index.php">Ballina</a> |
+            <a href="filma.php">Filma</a> |
             <a href="#">Seriale</a> |
-            <a href="rating.html">Vleresimi</a> |
-            <a href="contact.html">Kontakti</a> |
+            <a href="rating.php">Vleresimi</a> |
+            <a href="contact.php">Kontakti</a> |
         </p>
     </div>
 
