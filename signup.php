@@ -1,164 +1,175 @@
 <?php include "db/login_update.php";
 // include_once "Css/validation.php"; ?>
 <?php
-//
+
+
+
 //$nameError ="";
-//$surnameError ="";
+$surnameError ="";
 //$passwordError ="";
 //$emailError ="";
 //
-//if (isset($_POST['submit'])) {
-//
-//
-//    if (empty($_POST["name_add"])) {
-//        $nameError = "Shkruaj emrin";
-//    } else {
-//        $name = test_input($_POST["name_add"]);
-//        $emri = '/^[A-Za-z]{3,32}$/';
-//        if (!preg_match($emri, $name)) {
-//            $nameError = "Emri mund te permbaj 3-32 SHKRONJA";
-//        }
-//    }
-//
-//    if (empty($_POST["surname_add"])) {
-//        $surnameError = "Shkruaj mbiemrin";
-//    } else {
-//        $surname = test_input($_POST["surname_add"]);
-//        $mbiemri = '/^[A-Za-z]{3,32}$/';
-//        if (!preg_match($mbiemri, $surname)) {
-//            $surnameError = "Emri mund te permbaj 3-32 SHKRONJA";
-//        }
-//    }
-//
-//    if (empty($_POST["email_add"])) {
-//        $emailError = "Te shkruhet Email";
-//    } else {
-//        $email = test_input($_POST["email_add"]);
-//        $regex = '/^([a-zA-Z0-9\.]+@+[a-zA-Z]+(\.)+[a-zA-Z]{2,3})$/';
-//        if (!preg_match($regex, $email)) {
-//            $emailError = "Formati jo sakte";
-//        }
-//    }
-//
-//    if (empty($_POST["password_add"])) {
-//        $passwordError = "Te shkruhet fjalekalimi";
-//    } else {
-//        $password = test_input($_POST["password_add"]);
-//        $pasi = '/^([a-zA-Z0-9\.]+@+[a-zA-Z]+(\.)+[a-zA-Z]{2,3})$/';
-//        if (!preg_match($pasi, $password)) {
-//            $passwordError = "Passwordi duhet te permbaje nje shkronje nje numer,minimum 8 karaktere";
-//        }
-//    }
-//    ?>
-<!--    --><?php
-// Functions to filter user inputs
-//    function filterName($field)
-//    {
-//        // Sanitize user name
-//        $field = filter_var(trim($field), FILTER_SANITIZE_STRING);
-//
-//        // Validate user name
-//        if (filter_var($field, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z\s]+$/")))) {
-//            return $field;
+    if (isset($_POST['submit'])) {
+
+        //if (!isset($_POST["name_add"])) {
+//        function validationName()
+//        {
+//        if (empty($_POST["name_add"])) {
+//            throw new Exception("Shkruaj emrin");
 //        } else {
-//            return FALSE;
-//        }
-//    }
+//            $name = test_input($_POST["name_add"]);
+//            $emri = '/^[A-Za-z]{3,32}$/';
+//            if (!preg_match($emri, $name)) {
+//                throw new Exception("Emri mund te permbaj 3-32 SHKRONJA");
+//            }
+//        }}
+//        $nameError = "validationName";
 //
-//    function filterEmail($field)
-//    {
-//        // Sanitize e-mail address
-//        $field = filter_var(trim($field), FILTER_SANITIZE_EMAIL);
+        if (!isset($_POST["surname_add"])) {
+            ($surnameError = "Shkruaj mbiemrin");
+            header("Location: ../signup.php");
+            return;
+        } else {
+            $surname = test_input($_POST["surname_add"]);
+            $mbiemri = '/^[A-Za-z]{3,32}$/';
+            if (!preg_match($mbiemri, $surname)) {
+                $surnameError = "Emri mund te permbaj 3-32 SHKRONJA";
+                header("Location: ../signup.php");
+                return;
+            }
+        }
+    }
 //
-//        // Validate e-mail address
-//        if (filter_var($field, FILTER_VALIDATE_EMAIL)) {
-//            return $field;
+//        if (empty($_POST["email_add"])) {
+//            $emailError = "Te shkruhet Email";
 //        } else {
-//            return FALSE;
+//            $email = test_input($_POST["email_add"]);
+//            $regex = '/^([a-zA-Z0-9\.]+@+[a-zA-Z]+(\.)+[a-zA-Z]{2,3})$/';
+//            if (!preg_match($regex, $email)) {
+//                $emailError = "Formati jo sakte";
+//            }
 //        }
-//    }
 //
-//    function filterString($field)
-//    {
-//        // Sanitize string
-//        $field = filter_var(trim($field), FILTER_SANITIZE_STRING);
-//        if (!empty($field)) {
-//            return $field;
+//        if (empty($_POST["password_add"])) {
+//            $passwordError = "Te shkruhet fjalekalimi";
 //        } else {
-//            return FALSE;
+//            $password = test_input($_POST["password_add"]);
+//            $pasi = '/^([a-zA-Z0-9\.]+@+[a-zA-Z]+(\.)+[a-zA-Z]{2,3})$/';
+//            if (!preg_match($pasi, $password)) {
+//                $passwordError = "Passwordi duhet te permbaje nje shkronje nje numer,minimum 8 karaktere";
+//            }
 //        }
-//    }
+//        ?>
+<!--        --><?php
+//// Functions to filter user inputs
+//        function filterName($field)
+//        {
+//            // Sanitize user name
+//            $field = filter_var(trim($field), FILTER_SANITIZE_STRING);
+//
+//            // Validate user name
+//            if (filter_var($field, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z\s]+$/")))) {
+//                return $field;
+//            } else {
+//                return FALSE;
+//            }
+//        }
+//
+//        function filterEmail($field)
+//        {
+//            // Sanitize e-mail address
+//            $field = filter_var(trim($field), FILTER_SANITIZE_EMAIL);
+//
+//            // Validate e-mail address
+//            if (filter_var($field, FILTER_VALIDATE_EMAIL)) {
+//                return $field;
+//            } else {
+//                return FALSE;
+//            }
+//        }
+//
+//        function filterString($field)
+//        {
+//            // Sanitize string
+//            $field = filter_var(trim($field), FILTER_SANITIZE_STRING);
+//            if (!empty($field)) {
+//                return $field;
+//            } else {
+//                return FALSE;
+//            }
+//        }
 //
 //// Define variables and initialize with empty values
-//    $nameErr = $emailErr = $messageErr = "";
-//    $name = $email = $subject = $message = "";
+//        $nameErr = $emailErr = $messageErr = "";
+//        $name = $email = $subject = $message = "";
 //
 //// Processing form data when form is submitted
-//    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+//        if ($_SERVER["REQUEST_METHOD"] == "POST") {
 //
-//        // Validate user name
-//        if (empty($_POST["name"])) {
-//            $nameErr = "Please enter your name.";
-//        } else {
-//            $name = filterName($_POST["name"]);
-//            if ($name == FALSE) {
-//                $nameErr = "Please enter a valid name.";
-//            }
-//        }
-//
-//        // Validate email address
-//        if (empty($_POST["email"])) {
-//            $emailErr = "Please enter your email address.";
-//        } else {
-//            $email = filterEmail($_POST["email"]);
-//            if ($email == FALSE) {
-//                $emailErr = "Please enter a valid email address.";
-//            }
-//        }
-//
-//        // Validate message subject
-//        if (empty($_POST["subject"])) {
-//            $subject = "";
-//        } else {
-//            $subject = filterString($_POST["subject"]);
-//        }
-//
-//        // Validate user comment
-//        if (empty($_POST["message"])) {
-//            $messageErr = "Please enter your comment.";
-//        } else {
-//            $message = filterString($_POST["message"]);
-//            if ($message == FALSE) {
-//                $messageErr = "Please enter a valid comment.";
-//            }
-//        }
-//
-//        // Check input errors before sending email
-//        if (empty($nameErr) && empty($emailErr) && empty($messageErr)) {
-//            // Recipient email address
-//            $to = 'webmaster@example.com';
-//
-//            // Create email headers
-//            $headers = 'From: ' . $email . "\r\n" .
-//                'Reply-To: ' . $email . "\r\n" .
-//                'X-Mailer: PHP/' . phpversion();
-//
-//            // Sending email
-//            if (mail($to, $subject, $message, $headers)) {
-//                echo '<p class="success">Your message has been sent successfully!</p>';
+//            // Validate user name
+//            if (empty($_POST["name"])) {
+//                $nameErr = "Please enter your name.";
 //            } else {
-//                echo '<p class="error">Unable to send email. Please try again!</p>';
+//                $name = filterName($_POST["name"]);
+//                if ($name == FALSE) {
+//                    $nameErr = "Please enter a valid name.";
+//                }
+//            }
+//
+//            // Validate email address
+//            if (empty($_POST["email"])) {
+//                $emailErr = "Please enter your email address.";
+//            } else {
+//                $email = filterEmail($_POST["email"]);
+//                if ($email == FALSE) {
+//                    $emailErr = "Please enter a valid email address.";
+//                }
+//            }
+//
+//            // Validate message subject
+//            if (empty($_POST["subject"])) {
+//                $subject = "";
+//            } else {
+//                $subject = filterString($_POST["subject"]);
+//            }
+//
+//            // Validate user comment
+//            if (empty($_POST["message"])) {
+//                $messageErr = "Please enter your comment.";
+//            } else {
+//                $message = filterString($_POST["message"]);
+//                if ($message == FALSE) {
+//                    $messageErr = "Please enter a valid comment.";
+//                }
+//            }
+//
+//            // Check input errors before sending email
+//            if (empty($nameErr) && empty($emailErr) && empty($messageErr)) {
+//                // Recipient email address
+//                $to = 'webmaster@example.com';
+//
+//                // Create email headers
+//                $headers = 'From: ' . $email . "\r\n" .
+//                    'Reply-To: ' . $email . "\r\n" .
+//                    'X-Mailer: PHP/' . phpversion();
+//
+//                // Sending email
+//                if (mail($to, $subject, $message, $headers)) {
+//                    echo '<p class="success">Your message has been sent successfully!</p>';
+//                } else {
+//                    echo '<p class="error">Unable to send email. Please try again!</p>';
+//                }
 //            }
 //        }
 //    }
-//}
+//
 //function test_input($data) {
 //    $data = trim($data);
 //    $data = stripslashes($data);
 //    $data = htmlspecialchars($data);
 //    return $data;
 //}
-//?>
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -194,12 +205,12 @@
                         </ul>
                         <ul class="panel-heading">
                             <li class="panel-title">
-                                <a class="subMenu1" class="subMenuHighlight" href="password.html"><span>Forgot Password</span></a>
+                                <a class="subMenu1" class="subMenuHighlight" href="forgotPassword.php"><span>Forgot Password</span></a>
                             </li>
                         </ul>
                         <ul class="panel-heading">
                             <li class="panel-title">
-                                <a class="subMenu1" href="index.html"><span>Login</span></a>
+                                <a class="subMenu1" href="index.php"><span>Login</span></a>
                             </li>
                         </ul>
                     </div>
@@ -218,18 +229,18 @@
                             <form action="db/login_update.php" method="post" id="send">
 
                                 First Name: <input id="name_add" name="name_add" class="form-control" type="text">
-                                <span class="error"> * <?php echo $nameError; ?> </span><br>
+                                <span class="errorMessage"> <?php  echo $nameError; ?></span><br>
 
                                 Last Name: <input id="surname_add" name="surname_add" class="form-control" type="text">
-                                <span> * <?php echo $surnameError; ?> </span><br>
+                                <span> <?php echo $surnameError; ?> </span><br>
 
                                 Email Address: <input id="email_add" name="email_add" class="form-control" type="text">
-                                <span> * <?php echo $emailError; ?> </span><br>
+<!--                                <span> --><?php //echo $emailError; ?><!-- </span><br>-->
 
                                 Password: <input id="password" name="password_add" class="form-control" type="password">
-                                <span> * <?php echo $passwordError; ?> </span><br>
+<!--                                <span> --><?php //echo $passwordError; ?><!-- </span><br>-->
 
-                                Birthday: <input id="birthday_add" name="birthday_add" class="form-control" type="date">
+                                Birthday: <input id="birthday_add" name="birthday_add" class="form-control" type="date"><br>
 
                                 <button id="submit" type="submit" name="submit" class="btn btn-primary" role="button">Send</button>
                             </form>

@@ -1,12 +1,13 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Kthe passwordin </title>
     <link rel="stylesheet" href="Css/resetPass.css" type="text/css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
 
@@ -28,7 +29,7 @@
                         <div id="subMenu" class="panel panel-default">
                             <ul class="subMenuHighlight panel-heading">
                                 <li class="subMenuHighlight panel-title" id="subMenuHighlight">
-                                    <a id="li_291" class="subMenuHighlight" href="signup.html"><span>Register</span></a>
+                                    <a id="li_291" class="subMenuHighlight" href="signup.php"><span>Register</span></a>
                                 </li>
                             </ul>
                             <ul class="panel-heading">
@@ -38,7 +39,7 @@
                             </ul>
                             <ul class="panel-heading">
                                 <li class="panel-title">
-                                    <a class="subMenu1" href="index.html"><span>Login</span></a>
+                                    <a class="subMenu1" href="index.php"><span>Login</span></a>
                                 </li>
                             </ul>
                         </div>
@@ -52,22 +53,51 @@
                 <div class="col-sm-9 col-md-9 col-lg-10 content equal-height">
                     <div class="content-area-right">
                         <div class="content-crumb-div">
-                            <a href="index.html">Home</a> | <a href="">Your Account</a> | Forgot Password
+                            <a href="index.php">Home</a> | <a href="">Your Account</a> | Forgot Password
                         </div>
                         <div class="row">
                             <div class="col-md-5 forgot-form">
                                 <p>Please enter your email address below and we will send you information to change your password.</p>
-                                <label class="label-default" for="un">Email Address</label> <input id="email_addy" name="email_addy" class="form-control" type="text"><br>
-                                <a id="mybad" name="send" class="btn btn-primary" role="button">Send</a>
+                                <label class="label-default" for="un">Email Address</label>
+                                    <input class="form-control" id="email" placeholder="Your Email Address"><br>
+                                <input type="button" class="btn btn-primary" id="resetPassword" value="Reset Password">
                             </div>
                             <div class="col-md-5 forgot-return" style="display:none;">
-                                <h2>Reset Password Sent</h2>
-                                <p>An email has been sent to your address with a reset password you can use to access your account.</p>
+                                <p id="response"></p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+    </div>
+
+    <script type="text/javascript">
+
+        var email = $("#email");
+
+        $(document).ready(function () {
+            $('#resetPassword').on('click', function () {
+                if (email.val() != "") {
+                    email.css('border', '1px solid green');
+
+                    $.ajax({
+                        url: 'db/sendEmail.php',
+                        method: 'POST',
+                        dataType: 'json',
+                        data: {
+                            email: email.val()
+                        }, success: function (response) {
+                            if (!response.success)
+                                $("#response").html(response.msg).css('color', "red");
+                            else
+                                $("#response").html(response.msg).css('color', "green");
+                        }
+                    });
+                } else
+                    email.css('border', '1px solid red');
+            });
+        });
+    </script>
 
 </body>
 </html>

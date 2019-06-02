@@ -1,65 +1,138 @@
-<?php include_once "Connection.php"; ?>
-<?php
+<?php include_once "Connection.php";
 session_start();
 $nameError ="";
 $surnameError ="";
 $passwordError ="";
 $emailError ="";
+//if($_SERVER["REQUEST_METHOD"] == "POST"){
+//if (empty($_POST["name_add"])) {
+//    $nameError = "Shkruaj emrin";
+////        header("Location: ../signup.php");
+//    header("Location: ../signup.php");
+//}
+//else{
+//    $name = test_input($_POST["name_add"]);
+//    $emri = '/^[A-Za-z]{3,32}$/';
+//    if (!preg_match($emri,$name)) {
+//        $nameError = "Emri mund te permbaj 3-32 SHKRONJA";
+////            header("Location: ../signup.php");
+//    }
+//    header("Location: ../signup.php");
+//}
+//
+//if (empty($_POST["surname_add"])) {
+//    $surnameError = "Shkruaj mbiemrin";
+////        header("Location: ../signup.php");
+//}
+//else{
+//    $surname = test_input($_POST["surname_add"]);
+//    $mbiemri = '/^[A-Za-z]{3,32}$/';
+//    if (!preg_match($mbiemri,$surname)) {
+//        $surnameError = "Mbiemri mund te permbaj 3-32 SHKRONJA";
+////            header("Location: ../signup.php");
+//    }
+//}
+//
+//if (empty($_POST["email_add"])) {
+//    $emailError = "Te shkruhet Email";
+////        header("Location: ../signup.php");
+//}
+//else {
+//    $email = test_input($_POST["email_add"]);
+//    $regex = '/^([a-zA-Z0-9\.]+@+[a-zA-Z]+(\.)+[a-zA-Z]{2,3})$/';
+//    if (!preg_match($regex,$email)) {
+//        $emailError = "Formati jo sakte";
+////            header("Location: ../signup.php");
+//    }
+//}
+//
+//if (empty($_POST["password_add"])) {
+//    $passwordError= "Te shkruhet fjalekalimi";
+////        header("Location: ../signup.php");
+//}
+//else {
+//    $password = test_input($_POST["password_add"]);
+//    $pasi= '/^([a-zA-Z0-9\.]+@+[a-zA-Z]+(\.)+[a-zA-Z]{2,3})$/';
+//    if (!preg_match($pasi,$password)) {
+//        $passwordError = "Passwordi duhet te permbaje nje shkronje nje numer,minimum 8 karaktere";
+////            header("Location: ../signup.php");
+//    }
+//}}
+
+//if (!isset($_POST["name_add"])) {
+//    $nameError = "Shkruaj emrin";
+//    var_dump($nameError);
+//    header("Location: ../signup.php");
+//    return;
+//}
+//else{
+//    $name = test_input($_POST["name_add"]);
+//    $emri = '/^[A-Za-z]{3,32}$/';
+//    if (!preg_match($emri,$name)) {
+//        $nameError = "Emri mund te permbaj 3-32 SHKRONJA";
+//        var_dump($nameError);
+//        return;
+//    }
+//
+//}
+//print_r("Fdas");
 
 if (isset($_POST['submit'])) {
 
 
-    if (empty($_POST["name_add"])) {
-        $nameError = "Shkruaj emrin";
+//    if (empty($_POST["name_add"])) {
+//        $nameError = "Shkruaj emrin";
+////        header("Location: ../signup.php");
 //        header("Location: ../signup.php");
-    }
-    else{
-        $name = test_input($_POST["name_add"]);
-        $emri = '/^[A-Za-z]{3,32}$/';
-        if (!preg_match($emri,$name)) {
-            $nameError = "Emri mund te permbaj 3-32 SHKRONJA";
-//            header("Location: ../signup.php");
-        }
-    }
-
-    if (empty($_POST["surname_add"])) {
-        $surnameError = "Shkruaj mbiemrin";
+//    }
+//    else{
+//        $name = test_input($_POST["name_add"]);
+//        $emri = '/^[A-Za-z]{3,32}$/';
+//        if (!preg_match($emri,$name)) {
+//            $nameError = "Emri mund te permbaj 3-32 SHKRONJA";
+////            header("Location: ../signup.php");
+//        }
 //        header("Location: ../signup.php");
-    }
-    else{
-        $surname = test_input($_POST["surname_add"]);
-        $mbiemri = '/^[A-Za-z]{3,32}$/';
-        if (!preg_match($mbiemri,$surname)) {
-            $surnameError = "Mbiemri mund te permbaj 3-32 SHKRONJA";
-//            header("Location: ../signup.php");
-        }
-    }
-
-    if (empty($_POST["email_add"])) {
-        $emailError = "Te shkruhet Email";
-//        header("Location: ../signup.php");
-    }
-    else {
-        $email = test_input($_POST["email_add"]);
-        $regex = '/^([a-zA-Z0-9\.]+@+[a-zA-Z]+(\.)+[a-zA-Z]{2,3})$/';
-        if (!preg_match($regex,$email)) {
-            $emailError = "Formati jo sakte";
-//            header("Location: ../signup.php");
-        }
-    }
-
-    if (empty($_POST["password_add"])) {
-        $passwordError= "Te shkruhet fjalekalimi";
-//        header("Location: ../signup.php");
-    }
-    else {
-        $password = test_input($_POST["password_add"]);
-        $pasi= '/^([a-zA-Z0-9\.]+@+[a-zA-Z]+(\.)+[a-zA-Z]{2,3})$/';
-        if (!preg_match($pasi,$password)) {
-            $passwordError = "Passwordi duhet te permbaje nje shkronje nje numer,minimum 8 karaktere";
-//            header("Location: ../signup.php");
-        }
-    }
+//    }
+//
+//    if (empty($_POST["surname_add"])) {
+//        $surnameError = "Shkruaj mbiemrin";
+////        header("Location: ../signup.php");
+//    }
+//    else{
+//        $surname = test_input($_POST["surname_add"]);
+//        $mbiemri = '/^[A-Za-z]{3,32}$/';
+//        if (!preg_match($mbiemri,$surname)) {
+//            $surnameError = "Mbiemri mund te permbaj 3-32 SHKRONJA";
+////            header("Location: ../signup.php");
+//        }
+//    }
+//
+//    if (empty($_POST["email_add"])) {
+//        $emailError = "Te shkruhet Email";
+////        header("Location: ../signup.php");
+//    }
+//    else {
+//        $email = test_input($_POST["email_add"]);
+//        $regex = '/^([a-zA-Z0-9\.]+@+[a-zA-Z]+(\.)+[a-zA-Z]{2,3})$/';
+//        if (!preg_match($regex,$email)) {
+//            $emailError = "Formati jo sakte";
+////            header("Location: ../signup.php");
+//        }
+//    }
+//
+//    if (empty($_POST["password_add"])) {
+//        $passwordError= "Te shkruhet fjalekalimi";
+////        header("Location: ../signup.php");
+//    }
+//    else {
+//        $password = test_input($_POST["password_add"]);
+//        $pasi= '/^([a-zA-Z0-9\.]+@+[a-zA-Z]+(\.)+[a-zA-Z]{2,3})$/';
+//        if (!preg_match($pasi,$password)) {
+//            $passwordError = "Passwordi duhet te permbaje nje shkronje nje numer,minimum 8 karaktere";
+////            header("Location: ../signup.php");
+//        }
+//    }
 
 
 
@@ -69,13 +142,13 @@ if (isset($_POST['submit'])) {
     $email = $_POST['email_add'];
     $birthday = $_POST['birthday_add'];
 
-    $connection = new DbConnection();
+    $connection = new MySQLConnect();
 
-    $name = mysqli_real_escape_string($connection->getdbconnect(), $name);
-    $surname = mysqli_real_escape_string($connection->getdbconnect(), $surname);
-    $password = mysqli_real_escape_string($connection->getdbconnect(), $password);
-    $email = mysqli_real_escape_string($connection->getdbconnect(), $email);
-    $birthday = mysqli_real_escape_string($connection->getdbconnect(), $birthday);
+    $name = mysqli_real_escape_string($connection->getConnection(), $name);
+    $surname = mysqli_real_escape_string($connection->getConnection(), $surname);
+    $password = mysqli_real_escape_string($connection->getConnection(), $password);
+    $email = mysqli_real_escape_string($connection->getConnection(), $email);
+    $birthday = mysqli_real_escape_string($connection->getConnection(), $birthday);
 
     $hashFormat = "$2y$10$";
     $salt = "asdfghjklqwertyuiopzxc";
@@ -91,13 +164,13 @@ if (isset($_POST['submit'])) {
         die('Is not connected' . mysqli_error());
     } else {
 
-        $result = mysqli_query($connection->getdbconnect(), $query);
+        $result = mysqli_query($connection->getConnection(), $query);
 
         var_dump($result);
 
         if (!$result) {
 
-            die('Query FAILD' . mysqli_error());
+            die('Query FAILD' . mysqli_error($connection->getConnection()));
 
         }else{
             $_SESSION['login'] = "hide";
